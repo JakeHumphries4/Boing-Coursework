@@ -13,18 +13,89 @@ import java.util.Scanner;
 
 public class ReadShapeFile {
 
-	// TODO: You will likely need to write four methods here. One method to
-	// construct each shape
-	// given the Scanner passed as a parameter. I would suggest static
-	// methods in this case.
+	/*
+    TODO: You will likely need to write four methods here. One method to
+    construct each shape
+    given the Scanner passed as a parameter. I would suggest static
+    methods in this case.
+    */
 
-	/**
-	 * Reads the data file used by the program and returns the constructed queue
-	 * 
-	 * @param in
-	 *            the scanner of the file
-	 * @return the queue represented by the data file
-	 */
+
+
+    private static Circle createCircle(Scanner shapeScan){
+
+        int px = Integer.parseInt(shapeScan.next());
+        int py = Integer.parseInt(shapeScan.next());
+        int vx = Integer.parseInt(shapeScan.next());
+        int vy = Integer.parseInt(shapeScan.next());
+        boolean filled = Boolean.parseBoolean(shapeScan.next());
+        int diameter = Integer.parseInt(shapeScan.next());
+        Color rgb = Color.rgb(Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()));
+        int time = Integer.parseInt(shapeScan.next());
+
+
+        return new Circle(time, px, py, vx, vy, diameter, rgb, filled);
+    }
+    private static Square createSquare(Scanner shapeScan){
+
+        int px = Integer.parseInt(shapeScan.next());
+        int py = Integer.parseInt(shapeScan.next());
+        int vx = Integer.parseInt(shapeScan.next());
+        int vy = Integer.parseInt(shapeScan.next());
+        boolean filled = Boolean.parseBoolean(shapeScan.next());
+        int side = Integer.parseInt(shapeScan.next());
+        Color rgb = Color.rgb(Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()));
+        int time = Integer.parseInt(shapeScan.next());
+
+
+        return new Square(time, px, py, vx, vy, side, rgb, filled);
+    }
+    private static Oval createOval(Scanner shapeScan){
+
+        int px = Integer.parseInt(shapeScan.next());
+        int py = Integer.parseInt(shapeScan.next());
+        int vx = Integer.parseInt(shapeScan.next());
+        int vy = Integer.parseInt(shapeScan.next());
+        boolean filled = Boolean.parseBoolean(shapeScan.next());
+        int width = Integer.parseInt(shapeScan.next());
+        int height = Integer.parseInt(shapeScan.next());
+        Color rgb = Color.rgb(Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()));
+        int time = Integer.parseInt(shapeScan.next());
+
+
+        return new Oval(time, px, py, vx, vy, width, height, rgb, filled);
+    }
+    private static Rect createRect(Scanner shapeScan){
+
+        int px = Integer.parseInt(shapeScan.next());
+        int py = Integer.parseInt(shapeScan.next());
+        int vx = Integer.parseInt(shapeScan.next());
+        int vy = Integer.parseInt(shapeScan.next());
+        boolean filled = Boolean.parseBoolean(shapeScan.next());
+        int width = Integer.parseInt(shapeScan.next());
+        int height = Integer.parseInt(shapeScan.next());
+        Color rgb = Color.rgb(Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()));
+        int time = Integer.parseInt(shapeScan.next());
+
+
+        return new Rect(time, px, py, vx, vy, width, height, rgb, filled);
+    }
+
+    /**
+     * Reads the data file used by the program and returns the constructed queue
+     *
+     * @param in the scanner of the file
+     * @return the queue represented by the data file
+     */
+
 	private static Queue<ClosedShape> readDataFile(Scanner in) {
         Queue<ClosedShape> shapeQueue = new Queue<ClosedShape>();
 
@@ -33,34 +104,26 @@ public class ReadShapeFile {
             Scanner shapeScan = new Scanner(row);
 
             String type = shapeScan.next();
-            int px = Integer.parseInt(shapeScan.next());
-            int py = Integer.parseInt(shapeScan.next());
-
-            int vx = Integer.parseInt(shapeScan.next());
-            int vy = Integer.parseInt(shapeScan.next());
-
-            boolean filled = Boolean.parseBoolean(shapeScan.next());
-            Color rgb = Color.rgb(Integer.parseInt(shapeScan.next()),
-                    Integer.parseInt(shapeScan.next()),
-                    Integer.parseInt(shapeScan.next()));
-
-            int time = Integer.parseInt(shapeScan.next());
-
             switch (type){
 
                 case("circle"):
-                    int diameter = Integer.parseInt(shapeScan.next());
-                    Circle circle = new Circle(time, px, py, vx, vy, diameter, rgb, filled);
-                    shapeQueue.enqueue(circle);
+                    Circle circle = createCircle(shapeScan);
                     System.out.println(circle.toString());
                     break;
 
                 case("oval"):
-                    int width = Integer.parseInt(shapeScan.next());
-                    int height = Integer.parseInt(shapeScan.next());
-                    Oval oval = new Oval(time, px, py, vx, vy, width, height, rgb, filled);
-                    shapeQueue.enqueue(oval);
+                    Oval oval = createOval(shapeScan);
                     System.out.println(oval.toString());
+                    break;
+
+                case("rect"):
+                    Rect rect = createRect(shapeScan);
+                    System.out.println(rect.toString());
+                    break;
+
+                case("square"):
+                    Square square = createSquare(shapeScan);
+                    System.out.println(square.toString());
                     break;
 
                 default:
@@ -76,10 +139,6 @@ public class ReadShapeFile {
         }
         return shapeQueue;
     }
-
-
-
-
 
 	/**
 	 * Method to read the file and return a queue of shapes from this file. The
