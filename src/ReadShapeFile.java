@@ -107,23 +107,19 @@ public class ReadShapeFile {
             switch (type){
 
                 case("circle"):
-                    Circle circle = createCircle(shapeScan);
-                    System.out.println(circle.toString());
+                    shapeQueue.enqueue(createCircle(shapeScan));
                     break;
 
                 case("oval"):
-                    Oval oval = createOval(shapeScan);
-                    System.out.println(oval.toString());
+                    shapeQueue.enqueue(createOval(shapeScan));
                     break;
 
                 case("rect"):
-                    Rect rect = createRect(shapeScan);
-                    System.out.println(rect.toString());
+                    shapeQueue.enqueue(createRect(shapeScan));
                     break;
 
                 case("square"):
-                    Square square = createSquare(shapeScan);
-                    System.out.println(square.toString());
+                    shapeQueue.enqueue(createSquare(shapeScan));
                     break;
 
                 default:
