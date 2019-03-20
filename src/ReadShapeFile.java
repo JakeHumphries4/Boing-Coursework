@@ -88,7 +88,21 @@ public class ReadShapeFile {
 
         return new Rect(time, px, py, vx, vy, width, height, rgb, filled);
     }
+    private static Triangle createTri(Scanner shapeScan){
 
+        int px = Integer.parseInt(shapeScan.next());
+        int py = Integer.parseInt(shapeScan.next());
+        int vx = Integer.parseInt(shapeScan.next());
+        int vy = Integer.parseInt(shapeScan.next());
+        boolean filled = Boolean.parseBoolean(shapeScan.next());
+        int side = Integer.parseInt(shapeScan.next());
+        Color rgb = Color.rgb(Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()),
+                Integer.parseInt(shapeScan.next()));
+        int time = Integer.parseInt(shapeScan.next());
+
+        return new Triangle(time, px, py, vx, vy, side, rgb, filled);
+    }
     /**
      * Reads the data file used by the program and returns the constructed queue
      *
@@ -122,8 +136,11 @@ public class ReadShapeFile {
                     shapeQueue.enqueue(createSquare(shapeScan));
                     break;
 
+                case("tri"):
+                    shapeQueue.enqueue(createTri(shapeScan));
+                    break;
                 default:
-                    System.out.println("An error has occurred");
+                    System.out.println("An error has occurred in creating the shape");
                     System.exit(0);
                     return null;
 
@@ -152,6 +169,7 @@ public class ReadShapeFile {
             Scanner fileScan = new Scanner(f);
             return ReadShapeFile.readDataFile(fileScan);
         }catch(Exception e){
+                System.out.println(e);
                 System.out.println("Error reading file.");
                 System.exit(0);
                 return null;
